@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Actor;
+using Tables;
 using UnityEngine;
 
 public class StatHero : Stat
@@ -28,13 +29,15 @@ public class StatHero : Stat
     protected override void CalcStats()
     {
         var model = _dataHandler as HeroModel;
-        // _stats[STAT.BaseSpd] = model.tblHero.speed;
-        // _stats[STAT.BaseGrit] = model.tblCharacter.grit;
-        // _stats[STAT.BasePower] = model.tblCharacter.power;
-        // _stats[STAT.BaseHealth] = model.tblCharacter.hp;
-        // _stats[STAT.BaseLuck] = model.tblCharacter.luck;
-        //
-        // _stats[STAT.MaxHp] = StatCalc.GetCharacterMaxHp( model.tblCharacter.hp );
-        // _stats[STAT.Stamina] = StatCalc.GetCharacterMaxStamina( model.tblCharacter.grit );
+        var tblData = Table.hero.Get( model.key );
+
+        _stats[STAT.Atk] = tblData.atk;
+        _stats[STAT.Def] = tblData.def;
+        _stats[STAT.MaxHp] = tblData.hp;
+        _stats[STAT.Hp] = _stats[STAT.MaxHp];
+        _stats[STAT.MovSpd] = tblData.mov;
+        _stats[STAT.Crit] = tblData.crit;
+        _stats[STAT.CritDmg] = tblData.critDmg;
+        _stats[STAT.Tough] = tblData.toughness;
     }
 }

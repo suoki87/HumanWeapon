@@ -7,6 +7,7 @@ namespace Actor
 {
     public class CharacterView : UnitView
     {
+        public Animator anim;
         public SpriteRenderer render;
         protected Character character;
         protected CharacterModel charModel;
@@ -21,6 +22,11 @@ namespace Actor
         public override void OnExit()
         {
             base.OnExit();
+        }
+
+        public virtual void PlayAnimation( string trigger )
+        {
+            anim.SetTrigger( trigger );
         }
     }
 }

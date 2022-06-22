@@ -4,12 +4,18 @@ using UnityEngine;
 
 namespace Actor
 {
+    public enum UnitKind
+    {
+        Hero,
+        Monster,
+    }
+
     public class Unit : MonoBase
     {
         protected UnitModel unitModel;
         protected UnitView unitView;
 
-        public virtual void OnEnter( UnitModel model, UnitView view )
+        public virtual void OnEnter( UnitModel model )
         {
             this.unitModel = model;
             model.OnEnter();

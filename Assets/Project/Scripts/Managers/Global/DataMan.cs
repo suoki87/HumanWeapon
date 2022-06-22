@@ -8,7 +8,14 @@ namespace Data
 {
     public class DataMan : SingletonMono<DataMan>
     {
-        public ColorConfig colorConfig;
-        public DisplayConfig displayConfig;
+        public int stageNo = 1;
+
+        public void Init()
+        {
+            stageNo = 1;
+        }
+
     }
+
+
 }

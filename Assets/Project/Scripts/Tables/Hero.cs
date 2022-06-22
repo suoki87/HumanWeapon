@@ -8,6 +8,5 @@ namespace Tables
     public class Hero : TableDataBase<GDEHeroData>
     {
 
-
     }
 }

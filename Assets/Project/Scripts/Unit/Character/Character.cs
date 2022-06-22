@@ -7,11 +7,11 @@ namespace Actor
         protected CharacterModel charModel;
         protected CharacterView charView;
 
-        public override void OnEnter( UnitModel model, UnitView view )
+        public override void OnEnter( UnitModel model )
         {
-            base.OnEnter( model, view );
-            charModel = model as CharacterModel;
-            charView = view as CharacterView;
+            base.OnEnter( model );
+            charModel = unitModel as CharacterModel;
+            charView = unitView as CharacterView;
         }
 
         public override void OnExit()

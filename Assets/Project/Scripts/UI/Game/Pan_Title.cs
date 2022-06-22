@@ -9,15 +9,6 @@ namespace UI
 {
     public class Pan_Title : UIObject
     {
-        public void OnOpen()
-        {
-        }
-
-        public void OnClose()
-        {
-
-        }
-
         public void OnBtnStart()
         {
             SceneManager.LoadScene( "Game" );

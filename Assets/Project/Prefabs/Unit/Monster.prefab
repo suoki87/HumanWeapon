@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5376216975482785829}
-  - component: {fileID: 7245699275434304739}
   - component: {fileID: 3377706815297763634}
   - component: {fileID: 1841053416}
   - component: {fileID: 1841053417}
+  - component: {fileID: 9123323504547612103}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -35,19 +35,6 @@ Transform:
   m_Father: {fileID: 3365286455239168570}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7245699275434304739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6871682257958953032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eaed7986d0c1b34c85bb14dc9dfbeba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  render: {fileID: 3377706815297763634}
 --- !u!212 &3377706815297763634
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -131,6 +118,20 @@ SortingGroup:
   m_SortingLayerID: 1434050137
   m_SortingLayer: 3
   m_SortingOrder: 0
+--- !u!114 &9123323504547612103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871682257958953032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b44f1eb017877a547913304e249fee3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1841053416}
+  render: {fileID: 3377706815297763634}
 --- !u!1 &8150557823945161483
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3365286455239168570}
-  - component: {fileID: 7401332517446287115}
+  - component: {fileID: 1189661409939741466}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -164,7 +165,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7401332517446287115
+--- !u!114 &1189661409939741466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,6 +174,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8150557823945161483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e731a58328f724e4fa59ac8031016a88, type: 3}
+  m_Script: {fileID: 11500000, guid: c651b2cfc00938548a627f623de897d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

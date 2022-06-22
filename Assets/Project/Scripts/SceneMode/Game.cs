@@ -8,6 +8,9 @@ namespace SceneMode
 {
     public class Game : MonoBehaviour
     {
-
+        public void Start()
+        {
+            StageMan.In.OnEnter();
+        }
     }
 }
