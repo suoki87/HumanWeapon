@@ -9,7 +9,7 @@ public static class Logic_Game
     {
         var basePrice = Balance.STAT_PRICE_DEFAULT;
         var rate = Balance.STAT_UPPER_RATE;
-        return Mathf.FloorToInt(  GetMul( basePrice, rate, curLv) );
+        return Mathf.CeilToInt(  GetMul( basePrice, rate, curLv) );
     }
 
     public static int GetDropGold( int stageNo )

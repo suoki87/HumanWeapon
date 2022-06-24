@@ -26,13 +26,21 @@ namespace UI
         public TMP_Text txtCurHp;
         public TMP_Text txtGold;
 
+        public UISlotBuyStat[] stats;
+
         public override void OnOpen( object param = null )
         {
             base.OnOpen( param );
             Broadcaster.EnableListener( EventName.OnStatLvUp, OnRefreshStat );
             Broadcaster.EnableListener( EventName.OnMonsterDie, OnMonsterDie );
             Broadcaster.EnableListener( EventName.OnHit, OnRefreshHpBar );
+            Broadcaster.EnableListener( EventName.UIRefresh, RefreshAll );
             RefreshAll();
+
+            foreach( var uiSlotBuyStat in stats )
+            {
+                uiSlotBuyStat.OnEnter();
+            }
         }
 
         public override void OnClose()
@@ -40,6 +48,7 @@ namespace UI
             Broadcaster.DisableListener( EventName.OnStatLvUp, OnRefreshStat );
             Broadcaster.DisableListener( EventName.OnMonsterDie, OnMonsterDie );
             Broadcaster.DisableListener( EventName.OnHit, OnRefreshHpBar );
+            Broadcaster.DisableListener( EventName.UIRefresh, RefreshAll );
             base.OnClose();
         }
 
@@ -91,6 +100,16 @@ namespace UI
             txtSpd.text = string.Format( "SPD : {0:0.00}", hero.GetStat( STAT.MovSpd ) );
             txtHp.text = string.Format( "MAXHP : {0:0.00}", hero.GetStat( STAT.MaxHp ) );
             OnRefreshGold();
+        }
+
+        public void OnEnterInput()
+        {
+            UnitMan.In.hero.OnEnterInput();
+        }
+
+        public void OnExitInput()
+        {
+            UnitMan.In.hero.OnExitInput();
         }
     }
 }

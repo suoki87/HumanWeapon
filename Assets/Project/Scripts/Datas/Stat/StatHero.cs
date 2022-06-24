@@ -40,10 +40,14 @@ public class StatHero : Stat
         _stats[STAT.Atk] = tblData.atk + atkLv;
         _stats[STAT.Def] = tblData.def + ( defLv * 0.01f );
         _stats[STAT.MaxHp] = tblData.hp + ( hpLv * 10 );
-        _stats[STAT.Hp] = _stats[STAT.MaxHp];
-        _stats[STAT.MovSpd] = tblData.mov + ( movLv * 0.1f );
+        _stats[STAT.MovSpd] = tblData.mov + ( movLv * 0.05f );
         _stats[STAT.Crit] = tblData.crit;
         _stats[STAT.CritDmg] = tblData.critDmg;
         _stats[STAT.Tough] = tblData.toughness;
+    }
+
+    public override void ReFill()
+    {
+        _stats[STAT.Hp] = _stats[STAT.MaxHp];
     }
 }

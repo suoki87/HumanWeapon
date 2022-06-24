@@ -5,7 +5,6 @@ using UnityEngine;
 public class WorldHolder : SingletonMonoDestroy<WorldHolder>
 {
     public Transform Holder;
-
-
+    public Transform hudHolder;
 
 }

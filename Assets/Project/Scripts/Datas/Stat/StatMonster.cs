@@ -36,15 +36,20 @@ public class StatMonster : Stat
 
         var atk = tbl.atk * Mathf.Pow( 1.04f, stageNo - 1);
         var def = tbl.def + ( stageNo / 10 );
-        var hp = tbl.hp * Mathf.Pow( 1.04f, stageNo - 1);
+        var hp = tbl.hp * Mathf.Pow( 1.1f, stageNo - 1);
 
         _stats[STAT.Atk] = atk;
         _stats[STAT.Def] = def;
         _stats[STAT.MaxHp] = hp;
-        _stats[STAT.Hp] = _stats[STAT.MaxHp];
         _stats[STAT.MovSpd] = tbl.mov;
         _stats[STAT.Crit] = tbl.crit;
         _stats[STAT.CritDmg] = tbl.critDmg;
         _stats[STAT.Tough] = tbl.toughness;
+        _stats[STAT.Hp] = _stats[STAT.MaxHp];
+    }
+
+    public override void ReFill()
+    {
+        _stats[STAT.Hp] = _stats[STAT.MaxHp];
     }
 }

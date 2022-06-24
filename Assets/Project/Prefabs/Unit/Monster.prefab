@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1841053416}
   - component: {fileID: 1841053417}
   - component: {fileID: 9123323504547612103}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 196660983224376909}
   m_Father: {fileID: 3365286455239168570}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,6 +133,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 1841053416}
   render: {fileID: 3377706815297763634}
+  hpPivot: {fileID: 196660983224376909}
+--- !u!1 &7882952733650495175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 196660983224376909}
+  m_Layer: 3
+  m_Name: hpPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &196660983224376909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882952733650495175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5376216975482785829}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8150557823945161483
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +177,7 @@ GameObject:
   - component: {fileID: 1189661409939741466}
   - component: {fileID: 6198265607707984648}
   - component: {fileID: 1570783392000505850}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -49,6 +49,8 @@ public class StageMan : SingletonMonoDestroy<StageMan>
     private void OnHeroLvUp()
     {
         UnitMan.In.hero.OnLvUp();
+
+        Broadcaster.SendEvent( EventName.UIRefresh, TypeOfMessage.dontRequireReceiver );
     }
 
     IEnumerator StartStageCo()
@@ -134,7 +136,7 @@ public class StageMan : SingletonMonoDestroy<StageMan>
 
         DataMan.In.gold += Logic_Game.GetDropGold( DataMan.In.stageNo );
 
-        Broadcaster.SendEvent( EventName.OnMonsterDie );
+        Broadcaster.SendEvent( EventName.OnMonsterDie, TypeOfMessage.dontRequireReceiver );
 
         if( monsterCount <= 0 )
         {

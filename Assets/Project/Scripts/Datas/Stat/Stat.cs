@@ -39,6 +39,8 @@ public abstract class Stat
     protected abstract void NewStats();
     protected abstract void CalcStats();
 
+    public abstract void ReFill();
+
     public void SetDirty()
     {
         isDirty = true;

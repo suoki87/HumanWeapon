@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using PlayCore;
+using UI;
 using UnityEngine;
 
 namespace Actor
@@ -17,6 +18,7 @@ namespace Actor
             Run,
             Back,
             KnockBack,
+            Die,
         }
 
         public override void OnEnter( UnitModel model )
@@ -50,6 +52,8 @@ namespace Actor
                 case State.KnockBack:
                     KnockbackProcess();
                     break;
+                case State.Die:
+                    break;
                 default: throw new ArgumentOutOfRangeException();
             }
         }
@@ -76,8 +80,9 @@ namespace Actor
 
         void BackProcess()
         {
-            var movspd = 5f;
-            position += Vector3.left * movspd * Time.deltaTime;
+            var movSpd = Model.stat[STAT.MovSpd];
+            position += Vector3.left * movSpd * Time.deltaTime * 0.5f;
+            Model.HpRecover();
         }
 
         void KnockbackProcess()
@@ -106,23 +111,39 @@ namespace Actor
                 return;
             }
 
-            if( Model.OnHit( damage ) ) {
+            if( Model.OnHit( damage, out float realDmg ) ) {
                 //주금
                 //..
-                OnExit();
-                Destroy( gameObject );
-                StageMan.In.OnHeroDie();
+
+                Transition( State.Die, true );
+
             } else {
                 Transition( State.KnockBack, true );
                 View.OnHit();
             }
 
-            Broadcaster.SendEvent( EventName.OnHit );
+            HUDDamage.Spawn( position + new Vector3( -1f, 1f, 0f  ), realDmg.ToString("0.0"), Color.red );
+
+            Broadcaster.SendEvent( EventName.OnHit, TypeOfMessage.dontRequireReceiver );
         }
 
         public void OnLvUp()
         {
             Model.stat.SetDirty();
+        }
+
+        public void OnEnterInput()
+        {
+            if( Model.state == State.Run ) {
+                Transition( State.Back, false );
+            }
+        }
+
+        public void OnExitInput()
+        {
+            if( Model.state == State.Back ) {
+                Transition( State.Run, false );
+            }
         }
     }
 }

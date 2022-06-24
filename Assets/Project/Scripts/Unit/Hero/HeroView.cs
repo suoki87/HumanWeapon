@@ -7,6 +7,13 @@ namespace Actor
 {
     public class HeroView : CharacterView
     {
+        private Hero _hero;
+        public override void OnEnter( Unit unit, UnitModel model )
+        {
+            base.OnEnter( unit, model );
+            _hero = unit as Hero;
+        }
+
         public void OnTransition( Hero.State state )
         {
             switch( state )
@@ -18,10 +25,13 @@ namespace Actor
                     PlayAnimation( "Run" );
                     break;
                 case Hero.State.Back:
-                    PlayAnimation( "Idle" );
+                    PlayAnimation( "Back" );
                     break;
                 case Hero.State.KnockBack:
-                    PlayAnimation( "Idle" );
+                    PlayAnimation( "KnockBack" );
+                    break;
+                case Hero.State.Die:
+                    PlayAnimation( "Die" );
                     break;
                 default: throw new ArgumentOutOfRangeException( nameof(state), state, null );
             }
@@ -31,6 +41,13 @@ namespace Actor
         {
 
 
+        }
+
+        public void OnDieComplete()
+        {
+            _hero.OnExit();
+            Destroy( _hero );
+            StageMan.In.OnHeroDie();
         }
     }
 }

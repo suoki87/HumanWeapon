@@ -14,7 +14,7 @@ namespace UI
 
         public STAT statKind = STAT.None;
 
-        private void Start()
+        public void OnEnter()
         {
             Refresh();
         }
@@ -43,7 +43,8 @@ namespace UI
 
             Refresh();
 
-            Broadcaster.SendEvent( EventName.OnStatLvUp );
+            Broadcaster.SendEvent( EventName.OnStatLvUp, TypeOfMessage.dontRequireReceiver );
+            //Broadcaster.SendEvent( EventName.OnRefreshHpBar );
         }
     }
 }

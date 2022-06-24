@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3377706815297763634}
   - component: {fileID: 2971241942356499831}
   - component: {fileID: 7012677878257003882}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6315396509188845510}
   - component: {fileID: 4949942661891084268}
   - component: {fileID: 2791131661659823625}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8
 --- !u!61 &4949942661891084268
 BoxCollider2D:
   m_ObjectHideFlags: 0

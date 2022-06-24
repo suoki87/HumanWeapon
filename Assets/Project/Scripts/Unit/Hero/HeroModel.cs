@@ -19,6 +19,7 @@ namespace Actor
         public HeroModel( Unit unit, string key ) : base( unit, key )
         {
             stat = new StatHero( this );
+            stat.ReFill();
             _hero = unit as Hero;
         }
 
@@ -39,6 +40,7 @@ namespace Actor
                     knockBackTargetPos = _hero.position + ( Vector3.left * 2f );
                     knockBackTick = 0f;
                     break;
+                case Hero.State.Die: break;
                 default: throw new ArgumentOutOfRangeException( nameof(state), state, null );
             }
 
@@ -47,19 +49,27 @@ namespace Actor
 
         public bool IsDie()
         {
-            return stat[STAT.Hp] <= 0;
+            return stat[STAT.Hp] < 1;
         }
 
-        public bool OnHit( float damage )
+        public bool OnHit( float damage, out float realDmg )
         {
             if( IsDie() ) {
+                realDmg = damage;
                 return true;
             }
 
             var def = stat[STAT.Def];
-            var realDmg = Logic_Battle.CalcHitDamage( damage, def );
+            realDmg = Logic_Battle.CalcHitDamage( damage, def );
             stat[STAT.Hp] -= realDmg;
+
             return IsDie();
+        }
+
+        public void HpRecover()
+        {
+            stat[STAT.Hp] += (stat[STAT.MaxHp] / 10) * Time.deltaTime;
+            Broadcaster.SendEvent( EventName.UIRefresh, TypeOfMessage.dontRequireReceiver );
         }
     }
 }

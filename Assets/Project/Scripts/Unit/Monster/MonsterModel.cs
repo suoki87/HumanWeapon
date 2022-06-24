@@ -24,20 +24,21 @@ namespace Actor
 
         public bool IsDie()
         {
-            return stat[STAT.Hp] <= 0;
+            return stat[STAT.Hp] < 1;
         }
 
         /// <summary>
         /// return IsDie
         /// </summary>
-        public bool OnHit( float damage )
+        public bool OnHit( float damage, out float realDmg )
         {
             if( IsDie() ) {
+                realDmg = damage;
                 return true;
             }
 
             var def = stat[STAT.Def];
-            var realDmg = Logic_Battle.CalcHitDamage( damage, def );
+            realDmg = Logic_Battle.CalcHitDamage( damage, def );
             stat[STAT.Hp] -= realDmg;
 
             Log.Battle.I($"Monster OnHit Dmg:{damage} Def:{def} RealDmg:{realDmg}  HP:{stat[STAT.Hp]} / {stat[STAT.MaxHp]}"  );
