@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Actor
 {
-    public class Hero : Character
+    public class Hero : Character, IHittable
     {
         protected HeroModel Model;
         protected HeroView View;
@@ -24,6 +24,8 @@ namespace Actor
             base.OnEnter( model );
             Model = unitModel as HeroModel;
             View = unitView as HeroView;
+
+
         }
 
         public void OnPlay()
@@ -80,12 +82,47 @@ namespace Actor
 
         void KnockbackProcess()
         {
-            position = Move( EaseType.OutQuart, position, position - Vector3.left * 2f, Model.knockBackTick, Model.knockBackTime );
+            position = Move( EaseType.OutCubic, position, Model.knockBackTargetPos, Model.knockBackTick, Model.knockBackTime );
+            Model.knockBackTick += Time.deltaTime;
+            if( Model.knockBackTick >= Model.knockBackTime * 0.9f )
+            {
+                Transition( State.Run, true );
+            }
         }
 
         public virtual Vector3 Move(PlayCore.EaseType ease, Vector3 startPos, Vector3 destPos, float t, float time)
         {
             return Easing.Ease(ease, startPos, destPos, t / time);
+        }
+
+        public float GetStat( STAT stat )
+        {
+            return Model.stat[stat];
+        }
+
+        public void OnHit( Unit attacker, float damage )
+        {
+            if( Model.IsDie() ) {
+                return;
+            }
+
+            if( Model.OnHit( damage ) ) {
+                //주금
+                //..
+                OnExit();
+                Destroy( gameObject );
+                StageMan.In.OnHeroDie();
+            } else {
+                Transition( State.KnockBack, true );
+                View.OnHit();
+            }
+
+            Broadcaster.SendEvent( EventName.OnHit );
+        }
+
+        public void OnLvUp()
+        {
+            Model.stat.SetDirty();
         }
     }
 }

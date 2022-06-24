@@ -26,5 +26,11 @@ namespace Actor
                 default: throw new ArgumentOutOfRangeException( nameof(state), state, null );
             }
         }
+
+        public void OnHit()
+        {
+
+
+        }
     }
 }

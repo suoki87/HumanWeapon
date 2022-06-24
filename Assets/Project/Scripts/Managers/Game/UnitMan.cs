@@ -24,7 +24,7 @@ public class UnitMan : SingletonMonoDestroy<UnitMan>
         hero = null;
     }
 
-    public void SpawnUnit( Unit unit )
+    public void AddUnit( Unit unit )
     {
         if( units.Contains( unit ) ) {
             return;
@@ -40,6 +40,15 @@ public class UnitMan : SingletonMonoDestroy<UnitMan>
             monsters.Add( unit as Monster);
         }
     }
+
+    public void RemoveUnit( Unit unit )
+    {
+        if( units.Contains( unit ) == false) {
+            return;
+        }
+        units.Remove( unit );
+    }
+
 
     public void Process()
     {

@@ -15,6 +15,6 @@ public class ObjectMan : SingletonMonoDestroy<ObjectMan>
 
     public Monster SpwawnMonster()
     {
-        return pfMonster.MakeInstance<Monster>(  WorldHolder.In.Holder );
+        return pfMonster.MakeInstance<Monster>( WorldHolder.In.Holder );
     }
 }

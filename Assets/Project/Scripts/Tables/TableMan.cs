@@ -20,12 +20,14 @@ namespace Tables
     {
         public static Define Define => TableMan.In.define;
         public static Hero hero => TableMan.In.hero;
+        public static Monster monster => TableMan.In.monster;
     }
 
     public class TableMan : SingletonMono<TableMan>
     {
         public Define define;
         public Hero hero;
+        public Monster monster;
 
         protected override void OnAwake()
         {
@@ -40,6 +42,7 @@ namespace Tables
             //Todo 편의를 위해 인스턴싱을 여기서
             define = new Define();
             hero = new Hero();
+            monster = new Monster();
         }
     }
 

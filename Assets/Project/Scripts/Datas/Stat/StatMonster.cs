@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Actor;
+using Tables;
 using UnityEngine;
 
 public class StatMonster : Stat
@@ -31,13 +32,19 @@ public class StatMonster : Stat
         var stageNo = model.stageNo;
         var groupNo = model.groupNo;
 
-        _stats[STAT.Atk] = ( Balance.MONSTER_ATK_PER_STAGE * stageNo ) + groupNo;
-        _stats[STAT.Def] = ( Balance.MONSTER_DEF_PER_STAGE * stageNo );
-        _stats[STAT.MaxHp] = ( Balance.MONSTER_HP_PER_STAGE * stageNo ) + groupNo;;
+        var tbl = Table.monster.Get( model.key );
+
+        var atk = tbl.atk * Mathf.Pow( 1.04f, stageNo - 1);
+        var def = tbl.def + ( stageNo / 10 );
+        var hp = tbl.hp * Mathf.Pow( 1.04f, stageNo - 1);
+
+        _stats[STAT.Atk] = atk;
+        _stats[STAT.Def] = def;
+        _stats[STAT.MaxHp] = hp;
         _stats[STAT.Hp] = _stats[STAT.MaxHp];
-        _stats[STAT.MovSpd] = 0f;
-        _stats[STAT.Crit] = 0f;
-        _stats[STAT.CritDmg] = 0f;
-        _stats[STAT.Tough] = 10f;
+        _stats[STAT.MovSpd] = tbl.mov;
+        _stats[STAT.Crit] = tbl.crit;
+        _stats[STAT.CritDmg] = tbl.critDmg;
+        _stats[STAT.Tough] = tbl.toughness;
     }
 }

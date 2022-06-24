@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Actor;
+using Data;
 using Tables;
 using UnityEngine;
 
@@ -31,11 +32,16 @@ public class StatHero : Stat
         var model = _dataHandler as HeroModel;
         var tblData = Table.hero.Get( model.key );
 
-        _stats[STAT.Atk] = tblData.atk;
-        _stats[STAT.Def] = tblData.def;
-        _stats[STAT.MaxHp] = tblData.hp;
+        int atkLv = DataMan.In.statLv.GetLv( STAT.Atk );
+        int defLv = DataMan.In.statLv.GetLv( STAT.Def );
+        int movLv = DataMan.In.statLv.GetLv( STAT.MovSpd );
+        int hpLv = DataMan.In.statLv.GetLv( STAT.Hp );
+
+        _stats[STAT.Atk] = tblData.atk + atkLv;
+        _stats[STAT.Def] = tblData.def + ( defLv * 0.01f );
+        _stats[STAT.MaxHp] = tblData.hp + ( hpLv * 10 );
         _stats[STAT.Hp] = _stats[STAT.MaxHp];
-        _stats[STAT.MovSpd] = tblData.mov;
+        _stats[STAT.MovSpd] = tblData.mov + ( movLv * 0.1f );
         _stats[STAT.Crit] = tblData.crit;
         _stats[STAT.CritDmg] = tblData.critDmg;
         _stats[STAT.Tough] = tblData.toughness;

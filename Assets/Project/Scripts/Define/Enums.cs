@@ -1,6 +1,7 @@
 ﻿
 public enum STAT
 {
+    None,
     Atk,
     Def,
     MaxHp,

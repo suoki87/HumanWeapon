@@ -1,20 +1,16 @@
 
 public static class Balance
 {
-    public const float MONSTER_ATK_PER_STAGE = 5f;
-    public const float MONSTER_DEF_PER_STAGE = 1f;
-    public const float MONSTER_HP_PER_STAGE = 20f;
-}
+    public static float STAT_PRICE_DEFAULT = 10;
+    public static float STAT_UPPER_RATE = 1.04f;
 
-
-public static class Constant
-{
-
-
+    public static float DROP_GOLD_DEFAULT = 10;
+    public static float DROP_GOLD_RATE = 1.1f;
 }
 
 public static class EventName
 {
-    public const string GameEvent = "GameEvent";
-    
+    public const string OnStatLvUp = "OnStatLvUp";
+    public const string OnMonsterDie = "OnMonsterDie";
+    public const string OnHit = "OnHit";
 }

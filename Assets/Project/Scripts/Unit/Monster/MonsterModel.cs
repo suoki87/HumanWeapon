@@ -21,5 +21,27 @@ namespace Actor
             this.stageNo = stageNo;
             this.groupNo = groupNo;
         }
+
+        public bool IsDie()
+        {
+            return stat[STAT.Hp] <= 0;
+        }
+
+        /// <summary>
+        /// return IsDie
+        /// </summary>
+        public bool OnHit( float damage )
+        {
+            if( IsDie() ) {
+                return true;
+            }
+
+            var def = stat[STAT.Def];
+            var realDmg = Logic_Battle.CalcHitDamage( damage, def );
+            stat[STAT.Hp] -= realDmg;
+
+            Log.Battle.I($"Monster OnHit Dmg:{damage} Def:{def} RealDmg:{realDmg}  HP:{stat[STAT.Hp]} / {stat[STAT.MaxHp]}"  );
+            return IsDie();
+        }
     }
 }

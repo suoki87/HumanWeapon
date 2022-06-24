@@ -6,6 +6,9 @@ namespace Actor
 {
     public class MonsterView : CharacterView
     {
+        public void OnHit()
+        {
 
+        }
     }
 }

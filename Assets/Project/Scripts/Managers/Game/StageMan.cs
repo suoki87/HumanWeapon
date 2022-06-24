@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Actor;
 using Data;
 using GameDataEditor;
+using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageMan : SingletonMonoDestroy<StageMan>
 {
@@ -18,6 +20,10 @@ public class StageMan : SingletonMonoDestroy<StageMan>
     public State state = State.None;
     private Coroutine stageStartCo = null;
 
+    public int monsterCount = 0;
+
+    public Pan_Game uiGame;
+
     public void OnEnter()
     {
         //씬 자동 전환때문에 여기에 한번 오고 Title 로 가는 경우 걸러야함.
@@ -29,16 +35,26 @@ public class StageMan : SingletonMonoDestroy<StageMan>
 
         if( stageStartCo != null ) StopCoroutine( stageStartCo );
         stageStartCo = StartCoroutine( StartStageCo() );
+
+        Broadcaster.EnableListener( EventName.OnStatLvUp, OnHeroLvUp );
     }
 
     public void OnExit()
     {
+        uiGame.OnClose();
+        Broadcaster.DisableListener( EventName.OnStatLvUp, OnHeroLvUp );
         UnitMan.In.OnExit();
+    }
+
+    private void OnHeroLvUp()
+    {
+        UnitMan.In.hero.OnLvUp();
     }
 
     IEnumerator StartStageCo()
     {
         GenerateStage( DataMan.In.stageNo );
+        uiGame.OnOpen( null );
         yield return YieldCache.WaitForSeconds( 0.5f );
         OnPlay();
     }
@@ -56,7 +72,6 @@ public class StageMan : SingletonMonoDestroy<StageMan>
         hero.OnEnter( model );
 
         Util.TransformIdentityLocal( hero.transform, WorldHolder.In.Holder );
-        UnitMan.In.SpawnUnit( hero );
     }
 
     void GenerateMonsters(int stageNo)
@@ -80,14 +95,14 @@ public class StageMan : SingletonMonoDestroy<StageMan>
             for( int j = 0; j < monsterCountInGroup; j++ )
             {
                 var monster = ObjectMan.In.SpwawnMonster();
-                var model = new MonsterModel( monster, null );
+                var model = new MonsterModel( monster, GDEItemKeys.Monster_Monster_1 );
                 int groupNo = i + 1;
                 model.SetData( stageNo, groupNo );
                 monster.OnEnter( model );
 
                 float x = StartX + ( i * GroupDistance ) + ( j * UnitDistance );
                 monster.position = new Vector3( x, 0f, 0f );
-                UnitMan.In.SpawnUnit( monster );
+                monsterCount++;
             }
         }
     }
@@ -104,6 +119,27 @@ public class StageMan : SingletonMonoDestroy<StageMan>
         if( state == State.Run )
         {
             UnitMan.In.Process();
+        }
+    }
+
+    public void OnHeroDie()
+    {
+        StageMan.In.OnExit();
+        SceneManager.LoadScene( "Game" );
+    }
+
+    public void OnMonsterDie()
+    {
+        monsterCount--;
+
+        DataMan.In.gold += Logic_Game.GetDropGold( DataMan.In.stageNo );
+
+        Broadcaster.SendEvent( EventName.OnMonsterDie );
+
+        if( monsterCount <= 0 )
+        {
+            DataMan.In.stageNo++;
+            SceneManager.LoadScene( "Game" );
         }
     }
 }

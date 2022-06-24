@@ -23,12 +23,15 @@ namespace Actor
                 this.unitView = GetComponentInChildren<UnitView>();
             }
             this.unitView.OnEnter( this, model );
+            UnitMan.In.AddUnit( this );
         }
 
         public virtual void OnExit()
         {
             unitModel.OnExit();
             unitView.OnExit();
+
+            UnitMan.In.RemoveUnit( this );
         }
 
         public virtual void Process()
