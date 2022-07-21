@@ -35,5 +35,11 @@ namespace Actor
                 hpBar.OnRefresh( cur, max );
             }
         }
+
+        public void OnTransition( Monster.State state )
+        {
+
+
+        }
     }
 }

@@ -8,8 +8,16 @@ public class CameraMan : SingletonMonoDestroy<CameraMan>
     public Camera mainCam;
     public Camera uiCam;
 
-    public Vector3 origin = new Vector3( 0f, 1.8f, -10f );
+    Vector3 _origin;
     public Transform trf;
+
+    public float frontOffset = 2f;
+
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        _origin = trf.position;
+    }
 
     private void LateUpdate()
     {
@@ -20,7 +28,7 @@ public class CameraMan : SingletonMonoDestroy<CameraMan>
     {
         var hero = UnitMan.In.hero;
         if( hero != null ) {
-            trf.position = new Vector3( hero.position.x, origin.y, origin.z );
+            trf.position = new Vector3( hero.position.x + frontOffset, _origin.y, _origin.z );
         }
     }
 

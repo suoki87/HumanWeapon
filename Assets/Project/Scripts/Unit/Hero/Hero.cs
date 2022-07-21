@@ -26,8 +26,6 @@ namespace Actor
             base.OnEnter( model );
             Model = unitModel as HeroModel;
             View = unitView as HeroView;
-
-
         }
 
         public void OnPlay()
@@ -74,6 +72,7 @@ namespace Actor
 
         void RunProcess()
         {
+            //런상태는 이제 가만히 있는상태이다.
             var movSpd = Model.stat[STAT.MovSpd];
             position += Vector3.right * movSpd * Time.deltaTime;
         }
@@ -95,11 +94,6 @@ namespace Actor
             }
         }
 
-        public virtual Vector3 Move(PlayCore.EaseType ease, Vector3 startPos, Vector3 destPos, float t, float time)
-        {
-            return Easing.Ease(ease, startPos, destPos, t / time);
-        }
-
         public float GetStat( STAT stat )
         {
             return Model.stat[stat];
@@ -114,11 +108,9 @@ namespace Actor
             if( Model.OnHit( damage, out float realDmg ) ) {
                 //주금
                 //..
-
                 Transition( State.Die, true );
-
             } else {
-                Transition( State.KnockBack, true );
+                //Transition( State.KnockBack, true );
                 View.OnHit();
             }
 
@@ -132,18 +124,24 @@ namespace Actor
             Model.stat.SetDirty();
         }
 
-        public void OnEnterInput()
-        {
-            if( Model.state == State.Run ) {
-                Transition( State.Back, false );
-            }
-        }
+        //     //이제 더이상 뒤로 걷기를 하지 않는다.
+        //     //오히려 입력시 번개가 떨어지거나 한다.
 
-        public void OnExitInput()
-        {
-            if( Model.state == State.Back ) {
-                Transition( State.Run, false );
-            }
-        }
+        // public void OnEnterInput()
+        // {
+        //
+        //     // if( Model.state == State.Run ) {
+        //     //     Transition( State.Back, false );
+        //     // }
+        // }
+        //
+        // public void OnExitInput()
+        // {
+        //
+        //
+        //     // if( Model.state == State.Back ) {
+        //     //     Transition( State.Run, false );
+        //     // }
+        // }
     }
 }

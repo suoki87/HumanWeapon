@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PlayCore;
+using UnityEngine;
 
 namespace Actor
 {
@@ -22,6 +23,11 @@ namespace Actor
         public override void Process()
         {
             base.Process();
+        }
+
+        public virtual Vector3 Move(PlayCore.EaseType ease, Vector3 startPos, Vector3 destPos, float t, float time)
+        {
+            return Easing.Ease(ease, startPos, destPos, t / time);
         }
     }
 }

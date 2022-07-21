@@ -41,6 +41,8 @@ public class StageMan : SingletonMonoDestroy<StageMan>
 
     public void OnExit()
     {
+        UIMan.In.CloseAllPopUp();
+
         uiGame.OnClose();
         Broadcaster.DisableListener( EventName.OnStatLvUp, OnHeroLvUp );
         UnitMan.In.OnExit();
@@ -87,7 +89,7 @@ public class StageMan : SingletonMonoDestroy<StageMan>
         //그룹간 간격은 5m
 
         const int GroupCount = 6;
-        const float StartX = 10f;
+        const float StartX = 5f;
         const float GroupDistance = 10f;
         const float UnitDistance = 2f;
 

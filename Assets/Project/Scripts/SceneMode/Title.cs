@@ -14,10 +14,8 @@ namespace SceneMode
         public void Start()
         {
             TableMan.In.Init();
-
             DataMan.In.Init();
-
-
+            UIMan.In.OnSceneChanged();
             SceneManager.LoadScene( "Game" );
         }
     }

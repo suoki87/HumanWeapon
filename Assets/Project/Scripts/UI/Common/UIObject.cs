@@ -6,6 +6,8 @@ namespace UI
 {
     public abstract class UIObject : MonoBehaviour
     {
+        private UIKind kind;
+
         public virtual void OnOpen( object param = null)
         {
 
@@ -14,6 +16,11 @@ namespace UI
         public virtual void OnClose()
         {
 
+        }
+
+        public virtual void Close()
+        {
+            UIMan.In.Close( this );
         }
     }
 }

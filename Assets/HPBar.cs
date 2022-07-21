@@ -26,7 +26,7 @@ namespace UI
 
         public void OnRefresh(float cur, float max)
         {
-            textHp.text = string.Format( "{0:0.#}", cur );
+            textHp.text = string.Format( "{0}", Mathf.Ceil(cur) );
             bar.fillAmount = cur / max;
         }
     }

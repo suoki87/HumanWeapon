@@ -10,6 +10,7 @@ namespace SceneMode
     {
         public void Start()
         {
+            UIMan.In.OnSceneChanged();
             StageMan.In.OnEnter();
         }
     }

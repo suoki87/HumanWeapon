@@ -26,7 +26,7 @@ namespace UI
         public TMP_Text txtCurHp;
         public TMP_Text txtGold;
 
-        public UISlotBuyStat[] stats;
+
 
         public override void OnOpen( object param = null )
         {
@@ -36,11 +36,6 @@ namespace UI
             Broadcaster.EnableListener( EventName.OnHit, OnRefreshHpBar );
             Broadcaster.EnableListener( EventName.UIRefresh, RefreshAll );
             RefreshAll();
-
-            foreach( var uiSlotBuyStat in stats )
-            {
-                uiSlotBuyStat.OnEnter();
-            }
         }
 
         public override void OnClose()
@@ -102,14 +97,27 @@ namespace UI
             OnRefreshGold();
         }
 
-        public void OnEnterInput()
+        public void OnBtnShop()
         {
-            UnitMan.In.hero.OnEnterInput();
+            UIMan.In.Open( UIKind.Pop_Shop );
         }
 
-        public void OnExitInput()
+        public void OnBtnPotion(int index)
         {
-            UnitMan.In.hero.OnExitInput();
+            if( index == 0 )
+            {
+                //hp
+            }
+            else if( index == 1 )
+            {
+                //mp.
+            }
+        }
+
+        public void OnBtnSkill( int index )
+        {
+
+
         }
     }
 }

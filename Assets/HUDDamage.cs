@@ -17,7 +17,7 @@ namespace UI
         {
             jumpTween = holder.DOLocalJump(
                 new Vector3(
-                    Rands.Range( -2f, 2f ),
+                    0f,// Rands.Range( -2f, 2f ),
                     Rands.Range( 0.5f, 1f ), 0f ),
                 Rands.Range( 0.5f, 1f ), 1,
                 animTime ).SetAutoKill(false).Pause();
