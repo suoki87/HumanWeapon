@@ -17,5 +17,9 @@ namespace GameDataEditor
     {
         public static string Hero_Hero_1 = "Hero_1";
         public static string Monster_Monster_1 = "Monster_1";
+        public static string Magic_Magic_1 = "Magic_1";
+        public static string Magic_Magic_2 = "Magic_2";
+        public static string Item_Item_1 = "Item_1";
+        public static string Item_Item_2 = "Item_2";
     }
 }

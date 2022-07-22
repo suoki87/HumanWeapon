@@ -35,6 +35,7 @@ namespace Data
             stats.Add( STAT.Def, 0 );
             stats.Add( STAT.MovSpd, 0 );
             stats.Add( STAT.Hp, 0 );
+            stats.Add( STAT.Mp, 0 );
         }
 
         public void AddVal(STAT stat, int adder)

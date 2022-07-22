@@ -8,17 +8,20 @@ public class UnitMan : SingletonMonoDestroy<UnitMan>
     public List<Unit> units;
     public Hero hero;
     public List<Monster> monsters;
+    public List<Magic> magics;
 
     public void OnEnter()
     {
         units = new List<Unit>();
         monsters = new List<Monster>();
+        magics = new List<Magic>();
 
         hero = null;
     }
 
     public void OnExit()
     {
+        magics.Clear();
         monsters.Clear();
         units.Clear();
         hero = null;
@@ -36,25 +39,62 @@ public class UnitMan : SingletonMonoDestroy<UnitMan>
             hero = unit as Hero;
         }
 
-        if( unit is Monster ) {
-            monsters.Add( unit as Monster);
+        if( unit is Monster monster ) {
+            monsters.Add( monster);
+        }
+
+        if( unit is Magic magic )
+        {
+            magics.Add( magic );
         }
     }
 
     public void RemoveUnit( Unit unit )
     {
-        if( units.Contains( unit ) == false) {
-            return;
-        }
         units.Remove( unit );
+
+        if( unit is Hero ) {
+            hero = null;
+        }
+
+        if( unit is Monster monster ) {
+            monsters.Remove( monster);
+        }
+
+        if( unit is Magic magic ) {
+            magics.Remove( magic );
+        }
     }
 
 
     public void Process()
     {
-        foreach( var unit in units )
+        units.ForReverse( (unit) =>
         {
             unit.Process();
-        }
+        } );
     }
+
+    public Monster GetNearestMonster()
+    {
+        Monster target = null;
+        float minDistance = float.MaxValue;
+        foreach( var monster in monsters )
+        {
+            if( monster.IsAlive() == false ) {
+                continue;
+            }
+
+            var distance = Vector3.Distance( hero.position, monster.position );
+            if( distance < minDistance )
+            {
+                minDistance = distance;
+                target = monster;
+            }
+        }
+        return target;
+    }
+
+
+
 }

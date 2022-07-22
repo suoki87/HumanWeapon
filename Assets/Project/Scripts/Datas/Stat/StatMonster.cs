@@ -32,7 +32,7 @@ public class StatMonster : Stat
         var stageNo = model.stageNo;
         var groupNo = model.groupNo;
 
-        var tbl = Table.monster.Get( model.key );
+        var tbl = Table.Monster.Get( model.key );
 
         var atk = tbl.atk * Mathf.Pow( 1.04f, stageNo - 1);
         var def = tbl.def + ( stageNo / 10 );

@@ -19,8 +19,10 @@ namespace Tables
     public static class Table
     {
         public static Define Define => TableMan.In.define;
-        public static Hero hero => TableMan.In.hero;
-        public static Monster monster => TableMan.In.monster;
+        public static Hero Hero => TableMan.In.hero;
+        public static Monster Monster => TableMan.In.monster;
+        public static Magic Magic => TableMan.In.magic;
+        public static Item Item => TableMan.In.item;
     }
 
     public class TableMan : SingletonMono<TableMan>
@@ -28,6 +30,8 @@ namespace Tables
         public Define define;
         public Hero hero;
         public Monster monster;
+        public Magic magic;
+        public Item item;
 
         protected override void OnAwake()
         {
@@ -43,6 +47,8 @@ namespace Tables
             define = new Define();
             hero = new Hero();
             monster = new Monster();
+            magic = new Magic();
+            item = new Item();
         }
     }
 

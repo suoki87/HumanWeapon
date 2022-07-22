@@ -10,8 +10,7 @@ namespace UI
     /// </summary>
     public class UIFollower : MonoBase
 	{
-		private RectTransform root;
-    	Transform cTrf;
+		private RectTransform rect;
     	[HideInInspector] public Transform target = null;
 
     	private Camera _mainCam;
@@ -19,8 +18,7 @@ namespace UI
 
     	private void Awake()
     	{
-    		cTrf = transform;
-            root = GetComponentInParent<RectTransform>();
+            rect = GetComponentInParent<RectTransform>();
         }
 
         public void OnEnter( Transform target )

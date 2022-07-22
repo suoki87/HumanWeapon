@@ -90,6 +90,20 @@ namespace GameDataEditor
             }
         }
 
+        static string mpKey = "mp";
+		float _mp;
+        public float mp
+        {
+            get { return _mp; }
+            set {
+                if (_mp != value)
+                {
+                    _mp = value;
+					GDEDataManager.SetFloat(_key, mpKey, _mp);
+                }
+            }
+        }
+
         static string movKey = "mov";
 		float _mov;
         public float mov
@@ -174,6 +188,7 @@ namespace GameDataEditor
             dict.Merge(true, atk.ToGDEDict(atkKey));
             dict.Merge(true, def.ToGDEDict(defKey));
             dict.Merge(true, hp.ToGDEDict(hpKey));
+            dict.Merge(true, mp.ToGDEDict(mpKey));
             dict.Merge(true, mov.ToGDEDict(movKey));
             dict.Merge(true, crit.ToGDEDict(critKey));
             dict.Merge(true, critDmg.ToGDEDict(critDmgKey));
@@ -199,6 +214,7 @@ namespace GameDataEditor
                 dict.TryGetFloat(atkKey, out _atk);
                 dict.TryGetFloat(defKey, out _def);
                 dict.TryGetFloat(hpKey, out _hp);
+                dict.TryGetFloat(mpKey, out _mp);
                 dict.TryGetFloat(movKey, out _mov);
                 dict.TryGetFloat(critKey, out _crit);
                 dict.TryGetFloat(critDmgKey, out _critDmg);
@@ -217,6 +233,7 @@ namespace GameDataEditor
             _atk = GDEDataManager.GetFloat(_key, atkKey, _atk);
             _def = GDEDataManager.GetFloat(_key, defKey, _def);
             _hp = GDEDataManager.GetFloat(_key, hpKey, _hp);
+            _mp = GDEDataManager.GetFloat(_key, mpKey, _mp);
             _mov = GDEDataManager.GetFloat(_key, movKey, _mov);
             _crit = GDEDataManager.GetFloat(_key, critKey, _crit);
             _critDmg = GDEDataManager.GetFloat(_key, critDmgKey, _critDmg);
@@ -234,6 +251,7 @@ namespace GameDataEditor
             newClone.atk = atk;
             newClone.def = def;
             newClone.hp = hp;
+            newClone.mp = mp;
             newClone.mov = mov;
             newClone.crit = crit;
             newClone.critDmg = critDmg;
@@ -294,6 +312,15 @@ namespace GameDataEditor
             dict.TryGetFloat(hpKey, out _hp);
         }
 
+        public void Reset_mp()
+        {
+            GDEDataManager.ResetToDefault(_key, mpKey);
+
+            Dictionary<string, object> dict;
+            GDEDataManager.Get(_key, out dict);
+            dict.TryGetFloat(mpKey, out _mp);
+        }
+
         public void Reset_mov()
         {
             GDEDataManager.ResetToDefault(_key, movKey);
@@ -351,6 +378,7 @@ namespace GameDataEditor
             GDEDataManager.ResetToDefault(_key, atkKey);
             GDEDataManager.ResetToDefault(_key, defKey);
             GDEDataManager.ResetToDefault(_key, hpKey);
+            GDEDataManager.ResetToDefault(_key, mpKey);
             GDEDataManager.ResetToDefault(_key, movKey);
             GDEDataManager.ResetToDefault(_key, critKey);
             GDEDataManager.ResetToDefault(_key, critDmgKey);

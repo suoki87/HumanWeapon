@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Actor;
 using Data;
 using DG.Tweening;
+using GameDataEditor;
 using SceneMode;
 using Tables;
 using TMPro;
@@ -23,7 +25,9 @@ namespace UI
         public TMP_Text txtMonsterCount;
 
         public Slider hpBar;
+        public Slider mpBar;
         public TMP_Text txtCurHp;
+        public TMP_Text txtCurMp;
         public TMP_Text txtGold;
 
 
@@ -34,6 +38,7 @@ namespace UI
             Broadcaster.EnableListener( EventName.OnStatLvUp, OnRefreshStat );
             Broadcaster.EnableListener( EventName.OnMonsterDie, OnMonsterDie );
             Broadcaster.EnableListener( EventName.OnHit, OnRefreshHpBar );
+            Broadcaster.EnableListener( EventName.OnRefreshMpBar, OnRefreshMpBar );
             Broadcaster.EnableListener( EventName.UIRefresh, RefreshAll );
             RefreshAll();
         }
@@ -43,6 +48,7 @@ namespace UI
             Broadcaster.DisableListener( EventName.OnStatLvUp, OnRefreshStat );
             Broadcaster.DisableListener( EventName.OnMonsterDie, OnMonsterDie );
             Broadcaster.DisableListener( EventName.OnHit, OnRefreshHpBar );
+            Broadcaster.DisableListener( EventName.OnRefreshMpBar, OnRefreshMpBar );
             Broadcaster.DisableListener( EventName.UIRefresh, RefreshAll );
             base.OnClose();
         }
@@ -69,6 +75,16 @@ namespace UI
 
             txtCurHp.text = string.Format( "{0}/{1}", (int)curHp, (int)maxHp );
             hpBar.value = curHp / maxHp;
+        }
+
+        void OnRefreshMpBar()
+        {
+            var hero = UnitMan.In.hero;
+            var curMp = hero.GetStat( STAT.Mp );
+            var maxMp = hero.GetStat( STAT.MaxMp );
+
+            txtCurMp.text = string.Format( "{0}/{1}", (int)curMp, (int)maxMp );
+            mpBar.value = curMp / maxMp;
         }
 
         void OnRefreshGold()
@@ -116,8 +132,16 @@ namespace UI
 
         public void OnBtnSkill( int index )
         {
+            string key = string.Empty;
+            if( index == 0 ) {
+                key = GDEItemKeys.Magic_Magic_1;
+            }
+            else if( index == 1 ) {
+                key = GDEItemKeys.Magic_Magic_2;
 
-
+            }
+            //BroadCast Hero And Hero Make Magic, Before CHeck Mana. status
+            Broadcaster<string>.SendEvent( EventName.InputSkill, key, TypeOfMessage.dontRequireReceiver );
         }
     }
 }

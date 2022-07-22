@@ -18,5 +18,7 @@ namespace GameDataEditor
         public static string Define = "Define";
         public static string Hero = "Hero";
         public static string Monster = "Monster";
+        public static string Magic = "Magic";
+        public static string Item = "Item";
     }
 }
