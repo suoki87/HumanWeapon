@@ -5,6 +5,8 @@ namespace Actor
 {
     public class Character : Unit
     {
+
+
         protected CharacterModel charModel;
         protected CharacterView charView;
 

@@ -52,7 +52,7 @@ namespace Actor
         {
             var tbl = Model.tblData;
             var moveType = Table.Magic.GetMoveType( Model.key );
-            var speed = tbl.mov / 20f;
+            var speed = tbl.mov / 4;
             switch( moveType )
             {
                 case Tables.Magic.MoveType.Linear:
@@ -70,9 +70,9 @@ namespace Actor
                             }
                         }
 
-                        View.OnBurst();
+                        OnExit();
                         Destroy( gameObject );
-                        // OnExit();
+                        View.OnBurst();
                     }
                     break;
                 default: throw new ArgumentOutOfRangeException();

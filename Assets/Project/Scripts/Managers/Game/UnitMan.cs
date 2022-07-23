@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Actor;
+using Sirenix.Utilities;
 
 public class UnitMan : SingletonMonoDestroy<UnitMan>
 {
@@ -9,6 +10,7 @@ public class UnitMan : SingletonMonoDestroy<UnitMan>
     public Hero hero;
     public List<Monster> monsters;
     public List<Magic> magics;
+    public List<Unit> removables;       //삭제 예정목록
 
     public void OnEnter()
     {
@@ -33,6 +35,13 @@ public class UnitMan : SingletonMonoDestroy<UnitMan>
             return;
         }
 
+        #if UNITY_EDITOR
+        Log.to.I($"AddUnit {unit.name}");
+        if( units.Contains( unit ) ) {
+            Log.to.E($"이미있는 unit {unit.name}");
+        }
+        #endif
+
         units.Add( unit );
 
         if( unit is Hero ) {
@@ -51,7 +60,15 @@ public class UnitMan : SingletonMonoDestroy<UnitMan>
 
     public void RemoveUnit( Unit unit )
     {
-        units.Remove( unit );
+
+#if UNITY_EDITOR
+        Log.to.I($"RemoveUnit {unit.name}");
+        if( units.Contains( unit ) == false) {
+            Log.to.E($"없는 unit {unit.name}");
+        }
+#endif
+        removables.Add( unit );
+        //units.Remove( unit );
 
         if( unit is Hero ) {
             hero = null;
@@ -69,13 +86,21 @@ public class UnitMan : SingletonMonoDestroy<UnitMan>
 
     public void Process()
     {
+        if( removables.Count > 0 )
+        {
+            foreach( var target in removables ) {
+                units.Remove( target );
+            }
+            removables.Clear();
+        }
+
         units.ForReverse( (unit) =>
         {
             unit.Process();
         } );
     }
 
-    public Monster GetNearestMonster()
+    public Monster GetNearestMonster(float limitDistance = 5f)
     {
         Monster target = null;
         float minDistance = float.MaxValue;
@@ -84,8 +109,10 @@ public class UnitMan : SingletonMonoDestroy<UnitMan>
             if( monster.IsAlive() == false ) {
                 continue;
             }
-
             var distance = Vector3.Distance( hero.position, monster.position );
+            if( distance >= limitDistance ) {
+                continue;
+            }
             if( distance < minDistance )
             {
                 minDistance = distance;

@@ -36,8 +36,8 @@ public class StatHero : Stat
         int atkLv = DataMan.In.statLv.GetLv( STAT.Atk );
         int defLv = DataMan.In.statLv.GetLv( STAT.Def );
         int movLv = DataMan.In.statLv.GetLv( STAT.MovSpd );
-        int hpLv = DataMan.In.statLv.GetLv( STAT.Hp );
-        int mpLv = DataMan.In.statLv.GetLv( STAT.Mp );
+        int hpLv = DataMan.In.statLv.GetLv( STAT.MaxHp );
+        int mpLv = DataMan.In.statLv.GetLv( STAT.MaxMp );
 
         _stats[STAT.Atk] = tblData.atk + atkLv;
         _stats[STAT.Def] = tblData.def + ( defLv * 0.01f );

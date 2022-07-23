@@ -112,6 +112,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magic_FireBall
       objectReference: {fileID: 0}
+    - target: {fileID: 5560701346474246912, guid: d0095773475ca0644a463d865f871f77, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560701346474246912, guid: d0095773475ca0644a463d865f871f77, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 5560701346474246919, guid: d0095773475ca0644a463d865f871f77, type: 3}
       propertyPath: prefabBurst
       value: 

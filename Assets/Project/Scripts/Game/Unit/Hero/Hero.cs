@@ -158,14 +158,14 @@ namespace Actor
             if( target == null )
                 return;
 
-            Vector3 targetPos = target.position;
+            Vector3 targetPos = target.GetBody().position;
             Vector3 startPos = default;
 
             if( key == GDEItemKeys.Magic_Magic_1 ) {
                 startPos = targetPos + Vector3.up * 5f;
             }
             else if( key == GDEItemKeys.Magic_Magic_2 ) {
-                startPos = targetPos + ( Vector3.left * 10f );
+                startPos = targetPos + ( Vector3.left * 10f ) + (Vector3.up * 2f);
             }
 
             var prefab = ResourceMan.In.GetPrefab( tblMagic.prefab );

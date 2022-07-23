@@ -740,6 +740,8 @@ MonoBehaviour:
   units: []
   hero: {fileID: 0}
   monsters: []
+  magics: []
+  removables: []
 --- !u!4 &675745314
 Transform:
   m_ObjectHideFlags: 0

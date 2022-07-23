@@ -11,6 +11,9 @@ namespace Actor
         protected UnitModel unitModel;
         protected SortingGroup sorting;
 
+        public Transform body;
+        public Transform bottom;
+
         protected virtual void Awake()
         {
             sorting = gameObject.GetSmartComponent<SortingGroup>();

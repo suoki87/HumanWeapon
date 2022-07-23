@@ -39,5 +39,15 @@ namespace Actor
             unitModel.Process();
             unitView.Process();
         }
+
+        public virtual Transform GetBody()
+        {
+            return unitView.body;
+        }
+
+        public virtual Transform GetBottom()
+        {
+            return unitView.bottom;
+        }
     }
 }
